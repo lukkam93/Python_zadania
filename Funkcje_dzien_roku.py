@@ -40,9 +40,3 @@ ilosc_dni(2023, 2)
 
 
 #trzecia czesc zadania
-
-
-
-"""
-Zmiana jest tylko w ilosci dni lutego przy latach przestepnych
-"""
