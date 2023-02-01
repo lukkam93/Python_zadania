@@ -9,9 +9,6 @@ napisz funkcję która przyjmuje trzy parametry - rok, miesiąc i dzień, sprawd
 jeżeli nie zwróci wartość None, jeżeli są poprawne zwróci informację który to dzień roku
 """
 
-# function ilosc_dni should return number of days for specific year and month
-# (in your code function print number)
-
 def rok_przestepny(rok):
     if rok % 400 == 0 or (rok % 4 == 0 and rok % 100 !=0):
         return True
@@ -41,4 +38,20 @@ def ilosc_dni(rok, miesiac):
 ilosc_dni(2023, 2)
 
 #trzecia czesc zadania
+# napisz funkcję która przyjmuje trzy parametry - rok, miesiąc i dzień, sprawdzi czy wprowadzone dane są poprawne,
+# jeżeli nie zwróci wartość None, jeżeli są poprawne zwróci informację który to dzień roku
 
+#jak obliczyć, który to dzień roku?
+
+def ktory_dzien_roku(rok, miesiac, dzien):
+    if rok_przestepny(2022) == True:
+        rok_dni = 365
+    else:
+        rok_dni = 366
+        if rok not in range(1582,4001) or miesiac not in range(1,13) or dzien not in range(1,32):
+            return None
+        else:
+            dzien_roku = print("Jest git")
+        return dzien_roku
+
+ktory_dzien_roku(2022,12,30)
