@@ -24,19 +24,21 @@ else:
    print("Nie jest przestepny")
 
 def ilosc_dni(rok, miesiac):
+    komunikat = ""
     if rok_przestepny(2023) == True:
         if miesiac in [1, 3, 5, 7, 8, 10, 12]:
-            print("Ten miesiac ma 31 dni")
+            komunikat = print("Ten miesiac ma 31 dni")
         elif miesiac == 2:
-            print("Ten miesiac ma 29 dni")
+            komunikat = print("Ten miesiac ma 29 dni")
         else:
-            print("Ten miesiac ma 30 dni")
+            komunikat = print("Ten miesiac ma 30 dni")
 
     if rok_przestepny(2023) == False:
         if miesiac == 2:
-            print("Ten miesiac ma 28 dni")
+            komunikat = print("Ten miesiac ma 28 dni")
+    return komunikat
 
 ilosc_dni(2023, 2)
 
-
 #trzecia czesc zadania
+
