@@ -14,7 +14,7 @@ def rok_przestepny(rok):
         return True
     else:
         return False
-jest_przestepny = rok_przestepny(2023)
+jest_przestepny = rok_przestepny(2024)
 if jest_przestepny:
    print("Jest przestepny")
 else:
@@ -22,7 +22,7 @@ else:
 
 def ilosc_dni(rok, miesiac):
     komunikat = ""
-    if rok_przestepny(2023) == True:
+    if rok_przestepny(2024) == True:
         if miesiac in [1, 3, 5, 7, 8, 10, 12]:
             komunikat = print("Ten miesiac ma 31 dni")
         elif miesiac == 2:
@@ -30,12 +30,12 @@ def ilosc_dni(rok, miesiac):
         else:
             komunikat = print("Ten miesiac ma 30 dni")
 
-    if rok_przestepny(2023) == False:
+    if rok_przestepny(2024) == False:
         if miesiac == 2:
             komunikat = print("Ten miesiac ma 28 dni")
     return komunikat
 
-ilosc_dni(2023, 2)
+ilosc_dni(2024, 2)
 
 #trzecia czesc zadania
 # napisz funkcję która przyjmuje trzy parametry - rok, miesiąc i dzień, sprawdzi czy wprowadzone dane są poprawne,
@@ -44,14 +44,34 @@ ilosc_dni(2023, 2)
 #jak obliczyć, który to dzień roku?
 
 def ktory_dzien_roku(rok, miesiac, dzien):
-    if rok_przestepny(2022) == True:
-        rok_dni = 365
-    else:
-        rok_dni = 366
-        if rok not in range(1582,4001) or miesiac not in range(1,13) or dzien not in range(1,32):
-            return None
-        else:
-            dzien_roku = print("Jest git")
-        return dzien_roku
+    if rok not in range(1582, 4001) or miesiac not in range(1, 13) or dzien not in range(1, 32):
+        return None
+    elif rok_przestepny(1803) == False:
+        if miesiac == 1: return dzien
+        if miesiac == 2: return 31 + dzien
+        if miesiac == 3: return 31 + 28 + dzien
+        if miesiac == 4: return 31 + 28 + 31 + dzien
+        if miesiac == 5: return 31 + 28 + 31 + 30 + dzien
+        if miesiac == 6: return 31 + 28 + 31 + 30 + 31 + dzien
+        if miesiac == 7: return 31 + 28 + 31 + 30 + 31 + 30 + dzien
+        if miesiac == 8: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + dzien
+        if miesiac == 9: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + dzien
+        if miesiac == 10: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + dzien
+        if miesiac == 11: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + dzien
+        if miesiac == 12: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + dzien
+    elif rok_przestepny(1803) == True:
+        if miesiac == 1: return dzien
+        if miesiac == 2: return 31 + dzien + 1
+        if miesiac == 3: return 31 + 28 + dzien + 1
+        if miesiac == 4: return 31 + 28 + 31 + dzien + 1
+        if miesiac == 5: return 31 + 28 + 31 + 30 + dzien + 1
+        if miesiac == 6: return 31 + 28 + 31 + 30 + 31 + dzien + 1
+        if miesiac == 7: return 31 + 28 + 31 + 30 + 31 + 30 + dzien + 1
+        if miesiac == 8: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + dzien + 1
+        if miesiac == 9: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + dzien + 1
+        if miesiac == 10: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + dzien + 1
+        if miesiac == 11: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + dzien + 1
+        if miesiac == 12: return 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + dzien + 1
 
-ktory_dzien_roku(2022,12,30)
+
+print("Wybrany dzień jest", ktory_dzien_roku(1803,12,31),"dniem tego roku")
