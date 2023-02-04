@@ -37,12 +37,6 @@ def ilosc_dni(rok, miesiac):
 
 ilosc_dni(2024, 2)
 
-#trzecia czesc zadania
-# napisz funkcję która przyjmuje trzy parametry - rok, miesiąc i dzień, sprawdzi czy wprowadzone dane są poprawne,
-# jeżeli nie zwróci wartość None, jeżeli są poprawne zwróci informację który to dzień roku
-
-#jak obliczyć, który to dzień roku?
-
 def ktory_dzien_roku(rok, miesiac, dzien):
     if rok not in range(1582, 4001) or miesiac not in range(1, 13) or dzien not in range(1, 32):
         return None
