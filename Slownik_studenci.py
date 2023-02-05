@@ -10,22 +10,22 @@ slownik = {}
 
 while True:
     lista_ocen = []
-    imie = str(input("Podaj imie. [Wpisanie \"X\" spowouje zamknięcie aplikacji] "))
-    if imie == "x" or imie == "X":
+    imie = input("Podaj imie. [Wpisanie \"X\" spowouje zamknięcie aplikacji] ")
+    if imie.lower() == "x":
         break
     while True:
         ocena = input("Podaj ocene. [Wpisanie \"X\" spowouje cofnięcie do wprowadzenia imienia ucznia] ")
-        if ocena == "x" or ocena == "X":
+        if ocena.lower() == "x":
             break
         lista_ocen.append(int(ocena))
         slownik[imie] = lista_ocen
 
 srednia_klasy = []
-for k,v in slownik.items():
+for k, v in slownik.items():
     srednia_ucznia = sum(v) / len(v)
-    print("Imię ucznia:", k,"\nŚrednia ucznia: ", srednia_ucznia)
+    print("Imię ucznia:", k, "\nŚrednia ucznia: ", srednia_ucznia)
     srednia_klasy.append(srednia_ucznia)
 
-print("Średnia klasy: {}".format(sum(srednia_klasy) / len(srednia_klasy)))
+print(f"Średnia klasy: {sum(srednia_klasy) / len(srednia_klasy)}")
 
 print("Dziękujemy za skorzystanie z aplikacji")
