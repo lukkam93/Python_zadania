@@ -14,10 +14,10 @@ while True:
     dzien = int(input("Podaj dzień "))
     waga = float(input("Podaj wagę "))
     kalendarz[miesiac - 1][dzien - 1] = waga
-    print("Twoja waga miesiąca nr {}, dnia {}, wynosiła {}".format(miesiac, dzien, waga))
+    print(f"Twoja waga miesiąca nr {miesiac}, dnia {dzien}, wynosiła {waga}")
     print(kalendarz)
-    pytanie = str(input("Chcesz dalej wprowadzać dane? Y/N "))
-    if pytanie == "N" or pytanie == "n":
+    pytanie = input("Chcesz dalej wprowadzać dane? Y/N ")
+    if pytanie.lower() == "n":
         break
 print("Garść statystyk")
 
@@ -45,7 +45,7 @@ for miesiac in kalendarz:
         suma_roczna_wag += srednia_waga
         ilosc_pomiarow_wag += ile_pomiarow
         srednia_waga = srednia_waga / ile_pomiarow
-        print('Statystyka miesieczna:\nMax: {}\nMin: {}, Średnia: {}\n------------'.format(max_waga, min_waga, srednia_waga))
+        print(f"Statystyka miesieczna:\nMax: {max_waga}\nMin: {min_waga}, Średnia: {srednia_waga}\n------------")
     else:
         print("W danym miesiącu nie podano danych")
 
