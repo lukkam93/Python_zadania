@@ -1,102 +1,118 @@
 """
-		kalkulator wag
-		program przechowuje dane w postaci tablicy dwuwymiarowej
-		program prosi o użytkownika o podanie dnia i wagi w danym dniu
-		po zakończeniu wprowadzania danych (na życzenie używkonika) program wyświetla statystyki
-		średnia, najwyższa i najniższa waga w każdym miesiącu (jeżeli brak danych dla konkretnego miesiąca to informacja o tym)
-		średnia, najniższa, najwyższa waga w roku
+Napisać program który będzie działał na zasadzie Szyfru Cezara
++Program powinien spytać użytkownika o czynność którą chce wykonać - kodowanie / odkodowanie
++Spytać o wiadomość
++Spytać o punkt przesunięcia, jeżeli uzytkownik nic nie poda to przyjmie domyślną wartość - 3
+Wyświetlić zakodowany / odkodowany tekst
 """
 
-# kalendarz = [[0 for j in range(31)] for i in range(12)]
+# moj_alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻaąbcćdeęfghijklłmnńoóprsśtuwyzźż0123456789 "
 #
-# while True:
-#     miesiac = int(input("Podaj miesiąc: "))
-#     dzien = int(input("Podaj dzień: "))
-#     waga = float(input("Podaj wagę: "))
-#     kalendarz[miesiac - 1][dzien - 1] = waga
-#     print(f"Twoja waga miesiąca nr {miesiac}, dnia {dzien}, wynosiła {waga}")
-#     print(kalendarz)
-#     pytanie = input("Chcesz dalej wprowadzać dane? Y/N")
-#     if pytanie.lower() == "n":
-#         break
-# print("Garść statystyk")
+# def input_uzytkownika():
+#     wiadomosc_uzytkownika = input("Podaj treść wiadomości: ")
+#     klucz = int(input("Podaj klucz: ") or 3)
+#     return wiadomosc_uzytkownika, klucz
 #
-# max_roczny = []
-# min_roczny = []
-# suma_roczna_wag = 0
-# ilosc_pomiarow_wag = 0
 #
-# for miesiac in kalendarz:
-#     print(miesiac)
-#     max_waga = max(miesiac)
-#     min_waga = max_waga
-#     srednia_waga = 0
-#     ile_pomiarow = 0
+# def zakodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+#     for element in wiadomosc_uzytkownika:
+#         if element in moj_alfabet:
+#             pozycja_w_alfabecie = moj_alfabet.find(element)
+#             #if pozycja w alfabecie == -1 to dodaj znak, ktory wstawil user
+#             pozycja_z_kluczem = (pozycja_w_alfabecie + klucz) % len(moj_alfabet)
+#             zakodowana_wiadomosc = moj_alfabet[pozycja_z_kluczem]
+#             for i in zakodowana_wiadomosc:
+#                 print(i, end="")
+#                 #return i
 #
-#     for pomiar in miesiac:
-#         if pomiar != 0:
-#             srednia_waga += pomiar
-#             ile_pomiarow += 1
-#             if pomiar < min_waga:
-#                 min_waga = pomiar
-#     if ile_pomiarow != 0:
-#         suma_roczna_wag += srednia_waga
-#         ilosc_pomiarow_wag += ile_pomiarow
-#         srednia_waga = srednia_waga / ile_pomiarow
-#         print(f'Statystyka miesieczna:\nMax: {max_waga}\nMin: {min_waga}, Średnia: {srednia_waga}\n------------')
-#     else:
-#         print("W danym miesiącu nie podano danych")
 #
-# print("Statystyka roczna")
-# print(max(max_roczny))
-# print(min(min_roczny))
-# srednia_roczna = srednia_waga / ile_pomiarow
-# print(srednia_waga)
+# def odkodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+#     for element in wiadomosc_uzytkownika:
+#         if element in moj_alfabet:
+#             pozycja_w_alfabecie = moj_alfabet.find(element)
+#             pozycja_z_kluczem = (pozycja_w_alfabecie - klucz) % len(moj_alfabet)
+#             zakodowana_wiadomosc = moj_alfabet[pozycja_z_kluczem]
+#             for i in zakodowana_wiadomosc:
+#                 print(i, end="")
+#                 #return i
+#
+#
+# operacja_uzytkownika = input("Chcesz zakodować czy odkodować wiadomość? Z/O ")
+# operacja_uzytkownika = operacja_uzytkownika.upper()
+#
+# if operacja_uzytkownika == "Z":
+#     print("Kodujesz wiadomość")
+#     wiadomosc_uzytkownika, klucz = input_uzytkownika()
+#     zakodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz)
+#
+# elif operacja_uzytkownika == "O":
+#     print("Odkodowujesz wiadomość")
+#     wiadomosc_uzytkownika, klucz = input_uzytkownika()
+#     odkodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz)
+#
+# else:
+#     print("Podałeś nieprzewidzianą wartość")
+#     exit("Koniec działania programu")
 
-kalendarz = [[0 for j in range(31)] for i in range(12)]
 
-while True:
-    miesiac = int(input("Podaj miesiąc: "))
-    dzien = int(input("Podaj dzień: "))
-    waga = float(input("Podaj wagę: "))
-    kalendarz[miesiac - 1][dzien - 1] = waga
-    print(f"Twoja waga miesiąca nr {miesiac}, dnia {dzien}, wynosiła {waga}")
-    print(kalendarz)
-    pytanie = input("Chcesz dalej wprowadzać dane? Y/N")
-    if pytanie.lower() == "n":
-        break
-print("Garść statystyk")
 
-max_roczny = []
-min_roczny = []
-suma_roczna_wag = 0
-ilosc_pomiarow_wag = 0
+#################
+moj_alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻaąbcćdeęfghijklłmnńoóprsśtuwyzźż0123456789 "
 
-for miesiac in kalendarz:
-    print(miesiac)
-    max_waga = max(miesiac)
-    #max_roczny.append(max_waga)
-    min_waga = max_waga
-    srednia_waga = 0
-    ile_pomiarow = 0
+def input_uzytkownika():
+    wiadomosc_uzytkownika = input("Podaj treść wiadomości: ")
+    klucz = int(input("Podaj klucz: ") or 3)
+    return wiadomosc_uzytkownika, klucz
 
-    for pomiar in miesiac:
-        if pomiar != 0:
-            srednia_waga += pomiar
-            ile_pomiarow += 1
-            if pomiar < min_waga:
-                min_waga = pomiar
-                #min_roczny.append(min_waga)
-    if ile_pomiarow != 0:
-        suma_roczna_wag += srednia_waga
-        ilosc_pomiarow_wag += ile_pomiarow
-        srednia_waga = srednia_waga / ile_pomiarow
-        print(f'Statystyka miesieczna:\nMax: {max_waga}\nMin: {min_waga}, Średnia: {srednia_waga}\n------------')
-    else:
-        print("W danym miesiącu nie podano danych")
 
-print("Statystyka roczna")
-print("Największa waga", max(max_roczny))
-print("Największa waga", min(min_roczny))
-srednia_roczna = srednia_waga / ile_pomiarow
-print(srednia_waga)
+def zakodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+    for element in wiadomosc_uzytkownika:
+        if element in moj_alfabet:
+            pozycja_w_alfabecie = moj_alfabet.find(element)
+            #if pozycja w alfabecie == -1 to dodaj znak, ktory wstawil user
+            pozycja_z_kluczem = (pozycja_w_alfabecie + klucz) % len(moj_alfabet)
+            zakodowana_wiadomosc = moj_alfabet[pozycja_z_kluczem]
+        if element not in moj_alfabet:
+            zakodowana_wiadomosc += element
+            for i in zakodowana_wiadomosc:
+                print(i, end="")
+                    #return i
+
+
+def odkodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+    for element in wiadomosc_uzytkownika:
+        if element in moj_alfabet:
+            pozycja_w_alfabecie = moj_alfabet.find(element)
+            pozycja_z_kluczem = (pozycja_w_alfabecie - klucz) % len(moj_alfabet)
+            zakodowana_wiadomosc = moj_alfabet[pozycja_z_kluczem]
+            for i in zakodowana_wiadomosc:
+                print(i, end="")
+                #return i
+
+
+operacja_uzytkownika = input("Chcesz zakodować czy odkodować wiadomość? Z/O ")
+operacja_uzytkownika = operacja_uzytkownika.upper()
+
+if operacja_uzytkownika == "Z":
+    print("Kodujesz wiadomość")
+    wiadomosc_uzytkownika, klucz = input_uzytkownika()
+    zakodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz)
+
+elif operacja_uzytkownika == "O":
+    print("Odkodowujesz wiadomość")
+    wiadomosc_uzytkownika, klucz = input_uzytkownika()
+    odkodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz)
+
+else:
+    print("Podałeś nieprzewidzianą wartość")
+    exit("Koniec działania programu")
+
+"""
+        if ord(litera) < ord("a") or ord(litera) > ord("z"):
+            zakodowana_wiadomosc += litera
+            
+            do przepisywania znaku ktorego nie ma w alfabecie
+"""
+
+
+#####################
