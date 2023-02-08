@@ -13,6 +13,10 @@ while True:
     imie = input("Podaj imie. [Wpisanie \"X\" spowouje zamknięcie aplikacji] ")
     if imie.lower() == "x":
         break
+    if imie in slownik.keys():
+        print("To imie istnieje")
+        lista_ocen = slownik.get(imie)
+
     while True:
         ocena = input("Podaj ocene. [Wpisanie \"X\" spowouje cofnięcie do wprowadzenia imienia ucznia] ")
         if ocena.lower() == "x":
