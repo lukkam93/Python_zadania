@@ -21,5 +21,13 @@ while i < len(lista) - 1:
     i += 1
     print(lista)
 
-#bez sztywnej liczby na poczatku. bez okreslonej dlugosci listy
-#druga pentla while można zmienic na for
+#drugie rozwiazanie z petla for
+i = 0
+while i < len(lista) - 1:
+    j = 0
+    for j in range(len(lista) -1):
+        if lista[j] > lista[j + 1]:
+            lista[j], lista[j + 1] = lista[j + 1], lista[j]
+        j += 1
+    i += 1
+    print(lista)
