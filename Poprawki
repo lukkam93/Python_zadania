@@ -1,0 +1,240 @@
+"""
+Napisać program program sprawdzający czy podany przez użytkownik ciąg znaków zawiera
+małe litery
+duże litery
+cyfry
+jeden ze znaków $#@
+minimum 6 znaków
+maksimum 12 znaków
+"""
+
+zdanie_uzytkownika = input("Wpisz swoje zdanie: ")
+
+def wielkosc_liter(zdanie):
+    a = zdanie_uzytkownika.islower()
+    if a == False:
+        komunikat = "Zdanie posiada wielkie litery"
+    else:
+        komunikat = "Zdanie nie posiada wielkich liter"
+    return komunikat
+
+def sprawdzanie_cyfr(zdanie):
+    pusty_string = ""
+    for c in zdanie_uzytkownika:
+        if c.isdigit():
+            pusty_string +=c
+    if pusty_string != "":
+        komunikat = "Zdanie posiada cyfry"
+    else:
+        komunikat = "Zdanie nie posiada cyfr"
+    return komunikat
+
+def znaki_specjalne(zdanie):
+    if "$" in zdanie_uzytkownika:
+        komunikat = "Zdanie posiada znak specjalny"
+    elif "#" in zdanie_uzytkownika:
+        komunikat = "Zdanie posiada znak specjalny"
+    elif "@" in zdanie_uzytkownika:
+        komunikat = "Zdanie posiada znak specjalny"
+    else:
+        komunikat = "Nie posiada znaków specjalnych"
+    return komunikat
+
+def dlugosc_zdania(zdanie):
+    if len(zdanie_uzytkownika) < 6:
+        komunikat = "Zdanie posiada mniej niz 6 znaków"
+    elif len(zdanie_uzytkownika) > 12:
+        komunikat = "Zdanie posiada więcej niż 12 znaków"
+    return komunikat
+
+print(wielkosc_liter(zdanie = zdanie_uzytkownika))
+print(sprawdzanie_cyfr(zdanie = zdanie_uzytkownika))
+print(znaki_specjalne(zdanie = zdanie_uzytkownika))
+print(dlugosc_zdania(zdanie = zdanie_uzytkownika))
+
+###############
+
+"""
+zadanie 1:
+algorytm sortowania bąbelkowego - zapoznać sie z zaimplementować
+program wczytuje od użytkownika dowolną liczbę liczb i sortuje je z użyciem algorytmu sortowania bąbelkowego
+"""
+
+lista = []
+while True:
+    liczba = int(input("Podaj liczbę "))
+    lista.append(liczba)
+    print(lista)
+    pytanie = input("Czy chcesz dalej dodawać liczby? Y/N? ")
+    if pytanie.lower() == "y":
+        continue
+    elif pytanie.lower() == "n":
+        break
+
+i = 0
+while i < len(lista) - 1:
+    j = 0
+    for j in range(len(lista) -1):
+        if lista[j] > lista[j + 1]:
+            lista[j], lista[j + 1] = lista[j + 1], lista[j]
+        j += 1
+    i += 1
+    print(lista)
+
+"""
+Wczesniejsze rozwiazanie z petla while:
+
+i = 0
+while i < len(lista) - 1:
+    j = 0
+    while j < len(lista) - 1:
+        if lista[j] > lista[j+1]:
+            lista[j], lista[j+1] = lista[j+1], lista[j]
+        j += 1
+    i += 1
+    print(lista)
+"""
+
+#################
+
+"""
+		totolotek
+		program losuje 6 liczb od 1 do 49
+		program prosi o wprowadzenie 6 liczb od 1 do 49 przez użytkownika
+		program zwraca ilość "trafień"
+"""
+
+import random
+liczba_losowa = random.sample(range(1,50),6)
+
+print(liczba_losowa)
+
+
+lista_usera = []
+i = 0
+while i < len(liczba_losowa):
+    strzal = int(input("Podaj swoją liczbę "))
+    if strzal <= 0 or strzal > 49:
+        print("Poza zakresem. Podaj liczbę od 1 do 49")
+        continue
+    if strzal not in lista_usera:
+        lista_usera.append(strzal)
+        print("To Twój", i+1, "strzał")
+        i += 1
+    else:
+        print("Podałeś już tę wartość")
+
+print("Twoje strzały to", lista_usera)
+
+#liczenie trafien
+# trafienia = [elem for elem in liczba_losowa if elem in lista2]
+# print(trafienia)
+
+
+#liczenie trafien za pomoca petli for
+lista_trafien = []
+for i in lista_usera:
+    if i in liczba_losowa:
+        lista_trafien.append(i)
+ilosc_trafien = len(lista_trafien)
+print(f"Trafiona ilość liczb: {ilosc_trafien}")
+
+############
+
+"""
+Napisać program który będzie działał na zasadzie Szyfru Cezara
++Program powinien spytać użytkownika o czynność którą chce wykonać - kodowanie / odkodowanie
++Spytać o wiadomość
++Spytać o punkt przesunięcia, jeżeli uzytkownik nic nie poda to przyjmie domyślną wartość - 3
+Wyświetlić zakodowany / odkodowany tekst
+"""
+
+moj_alfabet = "AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻaąbcćdeęfghijklłmnńoóprsśtuwyzźż0123456789 "
+
+
+def input_uzytkownika():
+    wiadomosc_uzytkownika = input("Podaj treść wiadomości: ")
+    klucz = int(input("Podaj klucz: ") or 3)
+    return wiadomosc_uzytkownika, klucz
+
+
+def zakodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+    zakodowana_wiadomosc = ""
+    for element in wiadomosc_uzytkownika:
+        if element in moj_alfabet:
+            pozycja_w_alfabecie = moj_alfabet.find(element)
+            pozycja_z_kluczem = (pozycja_w_alfabecie + klucz) % len(moj_alfabet)
+            zakodowana_wiadomosc += moj_alfabet[pozycja_z_kluczem]
+        else:
+            zakodowana_wiadomosc += element
+    return zakodowana_wiadomosc
+
+
+
+
+def odkodowanie_wiadomosci(wiadomosc_uzytkownika, klucz):
+    zakodowana_wiadomosc = ""
+    for element in wiadomosc_uzytkownika:
+        if element in moj_alfabet:
+            pozycja_w_alfabecie = moj_alfabet.find(element)
+            pozycja_z_kluczem = (pozycja_w_alfabecie - klucz) % len(moj_alfabet)
+            zakodowana_wiadomosc += moj_alfabet[pozycja_z_kluczem]
+        else:
+            zakodowana_wiadomosc += element
+    return zakodowana_wiadomosc
+
+
+operacja_uzytkownika = input("Chcesz zakodować czy odkodować wiadomość? Z/O ")
+operacja_uzytkownika = operacja_uzytkownika.upper()
+
+if operacja_uzytkownika == "Z":
+    print("Kodujesz wiadomość")
+    wiadomosc_uzytkownika, klucz = input_uzytkownika()
+    print(zakodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz))
+
+elif operacja_uzytkownika == "O":
+    print("Odkodowujesz wiadomość")
+    wiadomosc_uzytkownika, klucz = input_uzytkownika()
+    print(odkodowanie_wiadomosci(wiadomosc_uzytkownika=wiadomosc_uzytkownika, klucz=klucz))
+
+else:
+    print("Podałeś nieprzewidzianą wartość")
+    exit("Koniec działania programu")
+
+###############
+
+"""
+zadanie 5:
+# napisz program który poprosi o wprowadzenie imienia studenta oraz oceny jaką uzyskał,
+"x" kończy wprowadzanie danych,
+po zakończeniu wprowadzania danych zwraca średnią ocen dla każdego studenta oraz dla całej klasy
+[słowniki do wykorzystania]
+"""
+
+slownik = {}
+
+while True:
+    lista_ocen = []
+    imie = input("Podaj imie. [Wpisanie \"X\" spowouje zamknięcie aplikacji] ")
+    if imie.lower() == "x":
+        break
+    if imie in slownik.keys():
+        print("To imie istnieje")
+        lista_ocen = slownik.get(imie)
+
+    while True:
+        ocena = input("Podaj ocene. [Wpisanie \"X\" spowouje cofnięcie do wprowadzenia imienia ucznia] ")
+        if ocena.lower() == "x":
+            break
+        lista_ocen.append(int(ocena))
+        slownik[imie] = lista_ocen
+
+srednia_klasy = []
+for k, v in slownik.items():
+    srednia_ucznia = sum(v) / len(v)
+    print("Imię ucznia:", k, "\nŚrednia ucznia: ", srednia_ucznia)
+    srednia_klasy.append(srednia_ucznia)
+
+print(f"Średnia klasy: {sum(srednia_klasy) / len(srednia_klasy)}")
+
+print("Dziękujemy za skorzystanie z aplikacji")
