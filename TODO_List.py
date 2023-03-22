@@ -14,6 +14,22 @@ wykorzystać poznane elementy języka Python
 wykorzystać klasy do modelowania danych
 """
 
+"""
+do napisania program przypominający działaniem listę TODO
+aplikacja do przechowywania zadań wraz ze stanami - TODO, IN PROGRESS, DONE
+aplikacja powinna
+wyświetlać aktualne zadania - można użyć zewnętrznej biblioteki do "rysowania" tabeli
+dać możliwość dodawania nowych zadań
+dać możliwość edytowania aktualnych zadań
+dać możliwość usuwania istniejących zadań
+zapisywanie stanu do pliku przy kończeniu pracy
+pobieranie stanu z pliku przy uruchomieniu aplikacji
+dodać menu mówiące użytkownikowi w jakim miejscu się znajduje / co wykonuje
+budowa aplikacji powinna być przemyślana, aplikacja powinna być rozbita na kilka mniejszych modułów / pakietów
+wykorzystać poznane elementy języka Python
+wykorzystać klasy do modelowania danych
+"""
+
 import json
 from tabulate import tabulate
 
@@ -46,7 +62,9 @@ def odczytaj():
 
         for k in zPliku:
             for v in zPliku[k]:
-                bazaDanych[k].append(Ticket.zJson(v))
+                # bazaDanych[k].append(Ticket.zJson(v))
+                bazaDanych[k].append(Ticket(v["Status"], v["Opis"], v["ID"]))
+
 
     except FileNotFoundError:
         print("Nie ma pliku, z którego można pobrać dane")
@@ -64,6 +82,10 @@ class Ticket:
     def __repr__(self):
         return f"ID{self.id}: {self.opis}"
 
+    ##do testow
+    # def __eq__(self, other):
+    #     return self.id == other.id
+
     def edycjaOpisu(self, nowyOpis):
         self.opis = nowyOpis
 
@@ -78,12 +100,12 @@ class Ticket:
         }
         return dictDoJson
 
-    @classmethod
-    def zJson(cls, dictDoJson):
-        ticket = cls(status=dictDoJson['Status'],
-                     opis = dictDoJson['Opis'],
-                     id = dictDoJson['ID'])
-        return ticket
+    # @classmethod
+    # def zJson(cls, dictDoJson):
+    #     ticket = cls(status=dictDoJson['Status'],
+    #                  opis = dictDoJson['Opis'],
+    #                  id = dictDoJson['ID'])
+    #     return ticket
 
 
 def menu_glowne():
@@ -103,7 +125,7 @@ Co chciałbyś zrobić?
 
     if wybor_1 == "D":
         print("Dodajesz")
-        wybor_kolumny()
+        # wybor_kolumny()
         dodajTicket()
 
     elif wybor_1 == "E":
@@ -126,7 +148,7 @@ Na której kolumnie chcesz dokonać operacji?
 2 - IN PROGRESS
 3 - DONE
     """)
-    global wybor_2
+    # global wybor_2 #wyrzuc dane globalne
     wybor_2 = input("Wybierz kolumne: ")
     if wybor_2 not in dostepneKolumny:
         print("Nieprawidłowa wartość, spróbuj jeszcze raz!")
@@ -146,21 +168,22 @@ Na której kolumnie chcesz dokonać operacji?
 def dodajTicket():
     maxID = znajdzNajwyzszeID()
     maxID += 1
+    wybor_2 = wybor_kolumny()
     opisTicketu = input("Podaj treść ticketu: ")
     ticket = Ticket(status=wybor_2 , opis=opisTicketu, id = maxID)
     if wybor_2 == "TODO":
         klucz = "TODO"
-        bazaDanych.setdefault(klucz)
+        # bazaDanych.setdefault(klucz)
         bazaDanych[klucz].append(ticket)
 
     elif wybor_2 == "IN PROGRESS":
         klucz = "IN PROGRESS"
-        bazaDanych.setdefault(klucz)
+        # bazaDanych.setdefault(klucz)
         bazaDanych[klucz].append(ticket)
 
     elif wybor_2 == "DONE":
         klucz = "DONE"
-        bazaDanych.setdefault(klucz)
+        # bazaDanych.setdefault(klucz)
         bazaDanych[klucz].append(ticket)
 
 
@@ -176,15 +199,17 @@ def usunTicket():
     id = szukajTicket(idUsun)
     if id == None:
         print("Ticket nie istnieje")
+        return id
     else:
         polozenie = bazaDanych[id[0]].index(id[1])
         del bazaDanych[id[0]][polozenie]
+    return id
 
 
 def edytujTicket():
     while True:
         idEdytuj = input("Podaj ID ticketu do edycji (w razie pomyłki naciśnij Q): ")
-        idEdytuj.lower()
+        # idEdytuj.lower()
         if idEdytuj == "q":
             return
         try:
@@ -208,7 +233,7 @@ Gdzie chcesz przesunąć ticket (naciśnij ENTER aby jeśli nie chcesz zmieniać
     if edycjaKolumny == "":
         pass
     if edycjaKolumny == "1":
-        print("Przenosisz ticket do TODO")
+        print("Przenosisz ticket do TODO") ## nastepne linijki przenies do funkcji i uzyc w pozostalych elifach
         ticket.edycjaStatusu("TODO")
         przesuniecie = bazaDanych[polozenie].index(ticket)
         bazaDanych["TODO"].append(ticket)
@@ -243,6 +268,10 @@ def znajdzNajwyzszeID():
                 maxID = v.id
     return maxID
 
+##do testow
+# bazaDanych = None
+# print("name:", __name__)
+# if __name__ == "__main__":
 
 result = ""
 bazaDanych = odczytaj()
@@ -251,3 +280,4 @@ while result != "W":
     result = menu_glowne()
 print("Dziękuje za skorzystanie z aplikacji")
 zapisz()
+
