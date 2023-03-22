@@ -14,22 +14,6 @@ wykorzystać poznane elementy języka Python
 wykorzystać klasy do modelowania danych
 """
 
-"""
-do napisania program przypominający działaniem listę TODO
-aplikacja do przechowywania zadań wraz ze stanami - TODO, IN PROGRESS, DONE
-aplikacja powinna
-wyświetlać aktualne zadania - można użyć zewnętrznej biblioteki do "rysowania" tabeli
-dać możliwość dodawania nowych zadań
-dać możliwość edytowania aktualnych zadań
-dać możliwość usuwania istniejących zadań
-zapisywanie stanu do pliku przy kończeniu pracy
-pobieranie stanu z pliku przy uruchomieniu aplikacji
-dodać menu mówiące użytkownikowi w jakim miejscu się znajduje / co wykonuje
-budowa aplikacji powinna być przemyślana, aplikacja powinna być rozbita na kilka mniejszych modułów / pakietów
-wykorzystać poznane elementy języka Python
-wykorzystać klasy do modelowania danych
-"""
-
 import json
 from tabulate import tabulate
 
