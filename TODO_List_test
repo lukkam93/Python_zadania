@@ -1,0 +1,80 @@
+import pytest
+
+from TODO_List import znajdzNajwyzszeID, szukajTicket, dodajTicket, usunTicket, wybor_kolumny, Ticket, edytujTicket, menu_glowne
+import TODO_List
+
+ticket = Ticket("", "", 1)
+@pytest.fixture(autouse=True)
+def build_database():
+    TODO_List.bazaDanych = {
+        "TODO": [Ticket("", "", 1)],
+        "IN PROGRESS": [],
+        "DONE": []
+    }
+
+
+def test_addTicket(monkeypatch):
+    responses = iter(["2", "test"])
+    monkeypatch.setattr('builtins.input', lambda msg: next(responses))
+    # yield
+    dodajTicket()
+    database_gold = {
+        "TODO": [Ticket("", "", 1)],
+        "IN PROGRESS": [Ticket("", "test", 2)],
+        "DONE": []
+    }
+    assert TODO_List.bazaDanych == database_gold
+
+
+def test_szukajTicket_true():
+    assert szukajTicket(1) == ("TODO", ticket)
+
+def test_szukajTicket_false():
+    assert szukajTicket(99) == None
+
+
+def test_usunTicket_true(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: 1)
+    usunTicket()
+    database_gold = {
+        "TODO": [],
+        "IN PROGRESS": [],
+        "DONE": []
+    }
+    assert TODO_List.bazaDanych == database_gold
+
+
+def test_usunTicket_false(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: 99)
+    assert usunTicket() == None
+
+
+
+def test_wyboruKolumny_true(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: "1")
+    assert wybor_kolumny() == "TODO"
+
+def test_wyboruKolumny_false(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: "2")
+    assert wybor_kolumny() != "TODO"
+
+
+def test_menuGlowne_false(monkeypatch):
+    monkeypatch.setattr('builtins.input', lambda _: "z")
+    assert menu_glowne() == None
+
+
+def test_znajdzNajzyzszeID_true(monkeypatch):
+    assert znajdzNajwyzszeID() == 1
+
+
+def test_edytujTicket_wlasciwy(monkeypatch):
+    responses = iter(["1", "2", "przesuniecie"])
+    monkeypatch.setattr('builtins.input', lambda msg: next(responses))
+    edytujTicket()
+    database_gold = {
+        "TODO": [],
+        "IN PROGRESS": [Ticket("", "przesuniecie", 1)],
+        "DONE": []
+    }
+    assert TODO_List.bazaDanych == database_gold
